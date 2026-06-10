@@ -1,0 +1,18 @@
+body{
+background:#f5f5f5;
+font-family:Arial;
+}
+
+header h2{
+font-weight:500;
+letter-spacing:2px;
+}
+
+nav a:hover{
+color:black !important;
+}
+
+footer h5{
+margin-top: auto;
+margin-bottom:10px;
+}

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaleHub - Fashion eCommerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- RESET & BASIC STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            color: #111;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-transform: none;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn-black {
+            background: white;
+            color: black;
+            padding: 12px 28px;
+            font-weight: bold;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-black:hover {
+            background: #333;
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+            padding: 0 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .header-icons i {
+            margin-right: 5px;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* --- HERO BANNER (ĐÃ TRẢ VỀ CĂN TRÁI THEO THIẾT KẾ GỐC) --- */
+        .hero {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: url('image/banner.jpg') no-repeat center center/100% auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Đưa chữ về lại bên lề trái */
+        }
+
+        .hero-content {
+            text-align: left; /* ĐÃ SỬA TRẢ VỀ: Chữ canh hàng bên trái */
+            padding-left: 80px; /* Khoảng cách lề trái thụt vào đúng form chuẩn */
+            color: white;
+            max-width: 900px;
+            width: 100%;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content span {
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Giữ nguyên kích thước chữ to bự chuẩn thời trang nhưng khít dòng gọn gàng bên lề trái */
+        .hero-content h1, .hero-content h2 {
+            font-size: 80px !important;
+            font-weight: 900 !important;
+            line-height: 1.05 !important;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        .hero-content h2 {
+            margin-bottom: 15px;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        /* --- DENIM COLLECTION (GIỮ NGUYÊN CĂN ĐỀU RỘNG 2 BÊN MÀN HÌNH MÁY TÍNH) --- */
+        .denim-section.container {
+            max-width: 95% !important; 
+            width: 100%;
+            padding: 0 20px;
+            margin: 60px auto;
+        }
+
+        .denim-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .denim-large {
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        .denim-right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .denim-box {
+            position: relative;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .denim-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .denim-box:hover img {
+            transform: scale(1.03);
+        }
+
+        /* CHỮ NẰM CHÍNH GIỮA DƯỚI ẢNH DENIM (GIỮ NGUYÊN) */
+        .denim-text {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 100%;
+            padding: 0 15px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+
+        .denim-text h3 {
+            font-size: 24px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .denim-text p {
+            font-size: 13px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+
+        .denim-link {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 2px;
+        }
+
+        /* --- PRODUCT SLIDER ("WE LOVE") --- */
+        .products-section {
+            padding: 40px 0;
+            position: relative;
+        }
+
+        .product-carousel {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            background: #f7f7f7;
+            margin-bottom: 15px;
+        }
+
+        .product-card h4 {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .stars {
+            color: #111;
+            font-size: 11px;
+            margin-bottom: 8px;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .color-dots {
+            display: flex;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            display: inline-block;
+        }
+
+        /* --- AUTUMN BANNER (VIDEO NỀN & CHỮ Ở GIỮA) --- */
+        .autumn-banner {
+            position: relative;
+            height: 450px;
+            width: 100%;
+            overflow: hidden;
+            margin: 60px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .banner-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .autumn-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 2;
+        }
+
+        .autumn-banner-content {
+            position: relative;
+            z-index: 3;
+            color: #fff;
+            width: 100%;
+            max-width: 100%;
+            text-align: center;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .autumn-banner-content span {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            display: block;
+        }
+
+        .autumn-banner-content h2 {
+            font-size: 42px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        /* --- FEATURED PRODUCT DETAILS --- */
+        .featured-product-section {
+            padding: 60px 0;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .product-gallery {
+            background: #f9f9f9;
+        }
+
+        .product-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .featured-price {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .option-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            color: #555;
+        }
+
+        .size-selector {
+            display: flex;
+            gap: 10px;
+        }
+
+        .size-box {
+            border: 1px solid #ccc;
+            padding: 8px 15px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .size-box.active,
+        .size-box:hover {
+            border-color: #111;
+            background: #111;
+            color: #fff;
+        }
+
+        .action-buttons {
+            margin-top: 30px;
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            background: #ddd;
+            color: #111;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .btn-paypal {
+            width: 100%;
+            background: #ffc439;
+            color: #111;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .product-desc-list {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #666;
+            line-height: 2;
+            padding-left: 20px;
+        }
+
+        /* --- SHOP THE LOOKS --- */
+        .shop-looks {
+            background: #fbf9f6;
+            padding: 60px 0;
+        }
+
+        .looks-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .look-box img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        /* --- BLOG SECTION --- */
+        .blog-section {
+            padding: 60px 0;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .blog-card h4 {
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .blog-card p {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        /* --- SERVICES BAR --- */
+        .services-bar {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 30px 0;
+        }
+
+        .services-inner {
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .service-item {
+            flex: 1;
+            font-size: 13px;
+        }
+
+        .service-item i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: #f4f4f4;
+            padding: 60px 0 20px 0;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 100px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h5 {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+            color: #666;
+        }
+
+        .footer-col p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-right: none;
+        }
+
+        .newsletter-form button {
+            background: #111;
+            color: #fff;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #444;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #777;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE STYLES (Dành cho thiết bị Mobile)
+           ========================================================================== */
+        @media (max-width: 991px) {
+            .nav-links, .header-icons span {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .header-container {
+                padding: 0 20px;
+            }
+
+            .hero {
+                aspect-ratio: auto;
+                height: 350px;
+                background-size: cover;
+            }
+
+            .hero-content {
+                padding-left: 20px; /* Thụt lề nhỏ vừa vặn trên Mobile */
+            }
+
+            .hero-content h1, .hero-content h2 {
+                font-size: 38px !important;
+                line-height: 1.1 !important;
+            }
+
+            .denim-section.container {
+                max-width: 100% !important;
+                padding: 0 15px;
+            }
+
+            .denim-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-carousel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .looks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .services-inner {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="mobile-menu-toggle"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Pages</a></li>
+                <li><a href="#">Women</a></li>
+                <li><a href="#">Men</a></li>
+                <li><a href="#">Blog</a></li>
+            </ul>
+            <div class="logo">SaleHub</div>
+            <div class="header-icons">
+                <div><i class="fa-solid fa-magnifying-glass"></i> <span>Search</span></div>
+                <div><i class="fa-regular fa-user"></i> <span>Account</span></div>
+                <div><i class="fa-solid fa-bag-shopping"></i> <span>My Cart <b>0</b></span></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span>New Collection</span>
+            <h1>FIND YOUR</h1>
+            <h2>PERFECT</h2>
+            <p>Uncompromising in style, quality and performance</p>
+            <a href="#" class="btn-black">Shop The Collection</a>
+        </div>
+    </section>
+
+    <section class="denim-section container">
+        <h2 class="section-title">Denim Collection</h2>
+        <p class="section-subtitle">Explore the best trends for girls and women at SaleHub! Clothes, shoes and cool accessories for a new season are available now at SaleHub online.</p>
+
+        <div class="denim-grid">
+            <div class="denim-box denim-large">
+                <img src="image/banner_1_1728x.png" alt="Denim Jacket">
+                <div class="denim-text">
+                    <h3>Denim-Jacket</h3>
+                    <p>14 Denim-Jacket Outfits to Live in Now That It Is Fall</p>
+                    <a href="#" class="denim-link">Shop The Collection</a>
+                </div>
+            </div>
+            <div class="denim-right-col">
+                <div class="denim-box">
+                    <img src="image/bn-2_676a7adf-ea7b-4fa1-8848-8517abdc2793_900x.jpg" alt="Denim Mini Skirt">
+                    <div class="denim-text">
+                        <h3>Denim Mini Skirt</h3>
+                        <a href="#" class="denim-link">Shop The Collection</a>
+                    </div>
+                </div>
+                <div class="denim-box">
+                    <img src="image/banner_3_900x.png" alt="Hooded Denim">
+                    <div class="denim-text">
+                        <h3>Hooded Denim</h3>
+                        <p>Subtitle from happy customers</p>
+                        <a href="#" class="denim-link">Shop The Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section container">
+        <h2 class="section-title">We Love <i class="fa-solid fa-heart" style="font-size: 18px;"></i></h2>
+        <div class="product-carousel">
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="image/1_35559729-bb4f-477a-afbb-d695451b9719_540x.jpg"></div>
+                <h4>Eco Aware organic cotton top</h4>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <div class="price">$39.00</div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="image/1_bc70b428-ba01-434a-87f7-7fc276929722_540x.jpg"></div>
+                <h4>Eco aware long sleeve blouse</h4>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <div class="price">$47.00</div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="image/5_225b97d3-5005-45cf-b46e-3d7d6ea50d47_720x.jpg"></div>
+                <h4>Oversized jacket with denim panels</h4>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <div class="price">$33.00</div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="image/1_c0df3076-19c1-4535-a664-270cf6e05ab5_720x.jpg"></div>
+                <h4>Levi's essential western denim shirt</h4>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <div class="price">$115.00</div>
+            </div>
+            <div class="product-card">
+                <div class="product-img-wrapper"><img src="image/1_8624266d-ffc8-44db-b030-5f62c62138d5_540x.jpg"></div>
+                <h4>Faux suede biker jacket</h4>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i></div>
+                <div class="price">$60.00</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="autumn-banner">
+        <video autoplay loop muted playsinline class="banner-video">
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="autumn-banner-content">
+            <span>New Arrivals</span>
+            <h2>Autumn is Coming</h2>
+            <p>The 11 Biggest Autumn/Winter 2021 Trends</p>
+            <p style="font-size: 11px; margin-top: 15px; letter-spacing: 1px;">BY VINOVATHEME &nbsp;|&nbsp; 11 NOVEMBER 2021</p>
+            <button class="btn-black" style="margin-top: 20px; background: #fff; color: #111;">View More</button>
+        </div>
+    </section>
+
+    <section class="featured-product-section container">
+        <h2 class="section-title">Featured Product</h2>
+        <div class="featured-grid" style="margin-top: 40px;">
+            <div class="product-gallery">
+                <img src="image/1_c0df3076-19c1-4535-a664-270cf6e05ab5_720x.jpg" alt="Featured Shirt">
+            </div>
+            <div class="product-info">
+                <h2>Levi's essential western denim shirt</h2>
+                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <div class="featured-price">$120.00</div>
+
+                <div class="option-title">Color: Darkolivegreen</div>
+                <div class="color-dots">
+                    <span class="dot" style="background: darkolivegreen;"></span>
+                    <span class="dot" style="background: black;"></span>
+                    <span class="dot" style="background: pink;"></span>
+                    <span class="dot" style="background: white;"></span>
+                    <span class="dot" style="background: blue;"></span>
+                </div>
+
+                <div class="option-title">Size: XS</div>
+                <div class="size-selector">
+                    <div class="size-box active">XS</div>
+                    <div class="size-box">S</div>
+                    <div class="size-box">M</div>
+                    <div class="size-box">L</div>
+                    <div class="size-box">XL</div>
+                </div>
+
+                <div class="action-buttons">
+                    <div class="btn-add-cart">Add to Bag</div>
+                    <div class="btn-paypal">Pay with <span style="color:#003087; font-style:italic; font-weight:bold;">Pay</span><span style="color:#0079c1; font-style:italic; font-weight:bold;">Pal</span></div>
+                </div>
+
+                <ul class="product-desc-list">
+                    <li>● MACHINE WASH AT MAX. TEMP. 30°C - NORMAL PROCESS</li>
+                    <li>● DO NOT BLEACH</li>
+                    <li>● DO NOT TUMBLE DRY</li>
+                    <li>● IRON AT MAX. TEMP. 110°C WITHOUT STEAM</li>
+                    <li>● DO NOT DRY CLEAN</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-looks">
+        <div class="container">
+            <h2 class="section-title">Shop The Looks</h2>
+            <p class="section-subtitle">Our latest endeavour features designs from around the world with materials so comfortable you won't want to wear anything else every again.</p>
+            <div class="looks-grid">
+                <div class="look-box"><img src="image/lb-1_88ecbdcc-c1c6-47af-9cb5-1f21ebae7c4c_720x.png"></div>
+                <div class="look-box"><img src="image/blog-2_900x.png"></div>
+                <div class="look-box"><img src="image/lb-3_243a2a47-8869-47c2-a1b7-ea9163d96e52_720x.png"></div>
+                <div class="look-box"><img src="image/lb-4_d1d516ae-775a-453a-a97b-84c9e80f69cd_720x.png"></div>
+                <div class="look-box"><img src="image/lb-5_fbd8fa3f-d8a8-4ef1-a023-c348c802ad38_720x.png"></div>
+                <div class="look-box"><img src="image/lb-6_a88c6dc9-2f7b-4020-96b1-f01cd6593323_720x.png"></div>
+                <div class="look-box"><img src="image/lb-7_177acd91-0dbb-4e63-8fe7-2311d1c193e8_720x.png"></div>
+                <div class="look-box"><img src="image/img-12-1_1920x1920.jpg"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-section container">
+        <h2 class="section-title">From Our Blog</h2>
+        <div class="blog-grid" style="margin-top: 40px;">
+            <div class="blog-card">
+                <img src="image/blog-1_900x.png">
+                <h4>5 Sweet Outfit Ideas You'll Wear Well Beyond Valentine's Day</h4>
+                <p>Valentine's Day 2021 has no choice but to unfold rather differently than usual...</p>
+                <div class="blog-meta"><i class="fa-regular fa-user"></i> By Vinovatheme &nbsp;&nbsp; <i class="fa-regular fa-calendar"></i> 03 Mar 2021</div>
+            </div>
+            <div class="blog-card">
+                <img src="image/blog-2_900x.png">
+                <h4>How To Be "Good With Money" According To 4 Female Financial Experts</h4>
+                <p>Valentine's Day 2021 has no choice but to unfold rather differently than usual...</p>
+                <div class="blog-meta"><i class="fa-regular fa-user"></i> By Vinovatheme &nbsp;&nbsp; <i class="fa-regular fa-calendar"></i> 03 Mar 2021</div>
+            </div>
+            <div class="blog-card">
+                <img src="image/blog-3_900x.png">
+                <h4>This Scandi Influencer's Shoe Collaboration Is The Gift That Keeps On Giving</h4>
+                <p>Valentine's Day 2021 has no choice but to unfold rather differently than usual...</p>
+                <div class="blog-meta"><i class="fa-regular fa-user"></i> By Vinovatheme &nbsp;&nbsp; <i class="fa-regular fa-calendar"></i> 03 Mar 2021</div>
+            </div>
+            <div class="blog-card">
+                <img src="image/blog-4_900x.png">
+                <h4>5 Sweet Outfit Ideas You'll Wear Well Beyond Valentine's Day</h4>
+                <p>Valentine's Day 2021 has no choice but to unfold rather differently than usual...</p>
+                <div class="blog-meta"><i class="fa-regular fa-user"></i> By Vinovatheme &nbsp;&nbsp; <i class="fa-regular fa-calendar"></i> 03 Mar 2021</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-bar">
+        <div class="container services-inner">
+            <div class="service-item">
+                <i class="fa-solid fa-truck"></i>
+                <strong>Free Shipping</strong> on all US order or order above $99
+            </div>
+            <div class="service-item">
+                <i class="fa-solid fa-headset"></i>
+                <strong>Support 24/7</strong> Contact us 24 hours a day, 7 days a week
+            </div>
+            <div class="service-item">
+                <i class="fa-solid fa-arrow-rotate-left"></i>
+                <strong>30 Days Return</strong> Simply return it within 30 days for an exchange
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <div class="logo" style="margin-bottom: 20px;">SaleHub</div>
+                <p>We're available by phone +123-456-789<br>info@example.com<br>Monday till Friday 10 to 6 EST</p>
+                <div style="margin-top: 15px;"><img src="https://i.imgur.com/v7734Ea.png" alt="Payment Gateways" style="max-width: 200px;"></div>
+            </div>
+            <div class="footer-col">
+                <h5>About Us</h5>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Factories</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Help and advice</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Our Shop</h5>
+                <ul>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Top Trending</a></li>
+                    <li><a href="#">Autumn Collection</a></li>
+                    <li><a href="#">Back In Stock</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Newsletter</h5>
+                <p>Receive our weekly newsletter. For dietary content, fashion insider and the best offers.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email address">
+                    <button type="submit">Join</button>
+                </form>
+                <div class="social-icons">
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-pinterest-p"></i>
+                    <i class="fa-brands fa-vimeo-v"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <div>Copyright © 2021 Vinovathemes. All rights reserved.</div>
+            <div style="display:flex; gap: 15px;">
+                <span>USD</span>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">FAQs</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
